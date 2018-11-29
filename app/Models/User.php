@@ -30,4 +30,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * 头像获取方法
+     *通过 $this->attributes['email'] 获取到用户的邮箱；
+     *使用 trim 方法剔除邮箱的前后空白内容；
+     *用 strtolower 方法将邮箱转换为小写；
+     *将小写的邮箱使用 md5 方法进行转码；
+     * @param string $size
+     * @return void
+     */
+    public function gravatar($size='100'){
+        //  $hash=md5(strtolower(trim($this->attributes['email'])));
+        $hash=md5(strtolower(trim('416606903@qq.com')));
+        return "http://www.gravater.com/avater/$hash?s=$size";
+    }
 }
