@@ -40,9 +40,19 @@ class User extends Authenticatable
      * @param string $size
      * @return void
      */
-    public function gravatar($size='100'){
-          $hash=md5(strtolower(trim($this->attributes['email'])));
-           // $hash=md5(strtolower(trim('416606903@qq.com')));
+    public function gravatar($size='100')
+    {
+        $hash=md5(strtolower(trim($this->attributes['email'])));
+        // $hash=md5(strtolower(trim('416606903@qq.com')));
         return "https://s.gravatar.com/avatar/$hash?s=$size";
+    }
+
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function($user){
+            $user->activation_token=str_random(30);
+        });
     }
 }

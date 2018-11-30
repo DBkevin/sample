@@ -20,7 +20,9 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,//唯一
         'is_admin'=>false,
+        'activated'=>true,
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret 加密后的否则加密
         'remember_token' => str_random(10),
+        'created_at'=>$data_time,
     ];
 });

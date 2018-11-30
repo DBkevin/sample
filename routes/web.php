@@ -38,3 +38,7 @@ Route::post('login','SessionsController@store')->name('login');
 //创建新会员(登陆)
 Route::delete('logout','SessionsController@destroy')->name('logout');
 //销毁对话(登陆退出)
+/**
+ * 激活邮箱
+ */
+Route::get('signup/confirm/{token}','UsersController@confirmEmail')->name('confirm_email');
