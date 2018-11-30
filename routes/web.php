@@ -28,3 +28,13 @@ Route::get('/users/{user}/edit', 'UsersController@edit')->name('users.edit');
 Route::patch('/users/{user}', 'UsersController@update')->name('users.update');
 Route::delete('/users/{user}', 'UsersController@destroy')->name('users.destroy');
 */
+
+/**
+ * 会员资源管理器
+ */
+Route::get('login','SessionsController@create')->name('login');
+//显示登录页
+Route::post('login','SessionsController@store')->name('login');
+//创建新会员(登陆)
+Route::delete('logout','SessionsController@destroy')->name('logout');
+//销毁对话(登陆退出)
