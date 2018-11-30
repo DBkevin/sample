@@ -7,6 +7,20 @@ use Auth;
 class SessionsController extends Controller
 {
     /**
+     * 控制器
+     * guest,
+     */
+    public function __construct()
+    {
+        $this->middleware('guest',[
+            'only'=>['create']
+        ]);
+        $this->middleware('auth',[
+            'except'=>['show','create','store']
+        ]);
+    }
+
+    /**
      * get/login 返回登陆表单视图
      *
      * @return void
@@ -22,7 +36,7 @@ class SessionsController extends Controller
         ]);
         if(Auth::attempt($credentials,$request->has('remember'))){
             session()->flash('success','欢迎回来!');
-            return redirect()->route('users.show',[Auth::user()]);
+            return redirect()->intended(route('users.show',[Auth::user()]));
             //登陆成功后的相关操作
         }else{
             //登陆失败后的相关操作

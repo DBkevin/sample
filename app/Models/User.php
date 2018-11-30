@@ -42,7 +42,7 @@ class User extends Authenticatable
      */
     public function gravatar($size='100'){
           $hash=md5(strtolower(trim($this->attributes['email'])));
-       // $hash=md5(strtolower(trim('416606903@qq.com')));
-        return "http://www.gravater.com/avater/$hash?s=$size";
+           // $hash=md5(strtolower(trim('416606903@qq.com')));
+        return "https://s.gravatar.com/avatar/$hash?s=$size";
     }
 }
