@@ -55,3 +55,7 @@ Route::get('password/reset/{token}','Auth\ResetPasswordController@showResetForm'
 //密码更新页面
 Route::post('passowrd/reset','Auth\ResetPasswordController@reset')->name('password.update');
 //执行密码更新操作
+/**
+ *  resource 传参 only 键指定只生成某几个动作的路由。
+ */
+Route::resource('statuses','StatusesController',['only'=>['store', 'destroy']]);

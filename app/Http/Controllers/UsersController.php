@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
 use Mail;
+use App\Models\Status;
 class UsersController extends Controller
 {
     //
@@ -22,7 +23,12 @@ class UsersController extends Controller
     }
 
 
-
+    /**
+     * 激活邮箱
+     *
+     * @param [type] $token
+     * @return void
+     */
     public function confirmEmail($token){
         $user=User::where('activation_token',$token)->firstOrFail();
         /**
@@ -34,7 +40,6 @@ class UsersController extends Controller
          * firstOrFail方法来获取查询结果的第一个用户,如果查询不到,返回404页面
          * 
          */
-
         $user->activated=true;//修改用户激活状态为true
         $user->activation_token=null;//修改激活令牌为空
         $user->save();//保存修改
@@ -64,8 +69,11 @@ class UsersController extends Controller
         return view('users.create');
     }
     public function show(User $user)
-    {
-        return view('users.show', compact('user'));
+    {   
+        $statuses=$user->statuses()
+                    ->orderBy('created_at','desc') //查询 倒叙
+                    ->paginate(30);//分页30
+               return view('users.show', compact('user','statuses'));
     }
     /**
      *
