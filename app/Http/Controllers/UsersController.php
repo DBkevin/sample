@@ -73,6 +73,7 @@ class UsersController extends Controller
         $statuses=$user->statuses()
                     ->orderBy('created_at','desc') //查询 倒叙
                     ->paginate(30);//分页30
+      
                return view('users.show', compact('user','statuses'));
     }
     /**
@@ -158,5 +159,20 @@ class UsersController extends Controller
             //$message->from($from, $name)->to($to)->subject($subject);
             $message->to($to)->subject($subject);
         });
+    }
+
+
+     public function followings(User $user)
+    {
+        $users = $user->followings()->paginate(30);
+        $title = '关注的人';
+        return view('users.show_follow', compact('users', 'title'));
+    }
+
+    public function followers(User $user)
+    {
+        $users = $user->followers()->paginate(30);
+        $title = '粉丝';
+        return view('users.show_follow', compact('users', 'title'));
     }
 }
